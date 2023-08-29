@@ -7,100 +7,45 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <?php include_once('../inc/connexion.php')?>
-    <div class="container">
-<div class="card">
-    <div class="overlay"><img src="../img/gta4.jpg" alt="">
-    <h2>Grand Theft Auto : 4</h2>
-    <p>24 €</p>
-    <div class="tags">
-        <span class="tag">PS5</span>
-        <span class="tag">RPG</span>
-        <span class="tag">Aventure</span>
-    </div>
-</div>
-</div>
-<div class="card">
-    <img src="../img/200px-Jaquette_Pokémon_Or.png" alt="">
-    <h2>Pokemon : Or</h2>
-    <p>150 €</p>
-    <div class="tags">
-        <span class="tag">PS5</span>
-        <span class="tag">RPG</span>
-        <span class="tag">Aventure</span>
-        <span class="tag">PS5</span>
-        <span class="tag">RPG</span>
-        <span class="tag">Aventure</span>
-    </div>
-</div>
-<div class="card">
-    <img src="../img/sekiro.jpg" alt="">
-    <h2>Sekiro : Shadow Die</h2>
-    <p>24 €</p>
-    <div class="tags">
-        <span class="tag">PS5</span>
-        <span class="tag">RPG</span>
-        <span class="tag">Aventure</span>
-    </div>
-</div>
-<div class="card">
-    <img src="../img/gta4.jpg" alt="">
-    <h2>Grand Theft Auto : 4</h2>
-    <p>24 €</p>
-    <div class="tags">
-        <span class="tag">PS5</span>
-        <span class="tag">RPG</span>
-        <span class="tag">Aventure</span>
-    </div>
-</div>
-</div>
+
+<?php
+    // Inclure le fichier de connexion à la base de données
+    include_once('../inc/connexion.php');
+
+    // Requête SQL pour récupérer les données des jeux
+    $sql = "SELECT jeu.game_title, jeu.game_desc, jeu.game_img, jeu.game_date, jeu.comm_id, GROUP_CONCAT(tags.tag_name SEPARATOR ', ') AS game_tags, propose_une_vente.sell_price
+            FROM jeu
+            LEFT JOIN gametags ON jeu.game_id = gametags.game_id
+            LEFT JOIN tags ON gametags.tag_id = tags.tag_id
+            LEFT JOIN propose_une_vente ON jeu.game_title = propose_une_vente.game_title
+            GROUP BY jeu.game_title";
+
+    $result = $connexion->query($sql);
+?>
 <div class="container">
-<div class="card">
-    <div class="overlay"><img src="../img/gta4.jpg" alt="">
-    <h2>Grand Theft Auto : 4</h2>
-    <p>24 €</p>
-    <div class="tags">
-        <span class="tag">PS5</span>
-        <span class="tag">RPG</span>
-        <span class="tag">Aventure</span>
-    </div>
+<?php
+    if ($result) {
+        if ($result->rowCount() > 0) {
+            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                echo '<div class="card">';
+                echo '<img src="../img/' . $row["game_img"] . '" alt="' . $row["game_title"] . '" class="game-image">';
+                echo '<h2>' . $row["game_title"] . '</h2>';
+                echo '<p>Prix : ' . $row["sell_price"] . ' €</p>';
+                echo '<div class="tags">';
+                $tags = explode(', ', $row["game_tags"]);
+                foreach ($tags as $tag) {
+                    echo '<span class="tag">' . $tag . '</span>';
+                }
+                echo '</div>';
+                echo '</div>';
+            }
+        } else {
+            echo "Aucun résultat trouvé.";
+        }
+    } else {
+        echo "Erreur de requête : " . $connexion->errorInfo()[2];
+    }
+    ?>
 </div>
-</div>
-<div class="card">
-    <img src="../img/200px-Jaquette_Pokémon_Or.png" alt="">
-    <h2>Pokemon : Or</h2>
-    <p>150 €</p>
-    <div class="tags">
-        <span class="tag">PS5</span>
-        <span class="tag">RPG</span>
-        <span class="tag">Aventure</span>
-        <span class="tag">PS5</span>
-        <span class="tag">RPG</span>
-        <span class="tag">Aventure</span>
-    </div>
-</div>
-<div class="card">
-    <img src="../img/sekiro.jpg" alt="">
-    <h2>Sekiro : Shadow Die</h2>
-    <p>24 €</p>
-    <div class="tags">
-        <span class="tag">PS5</span>
-        <span class="tag">RPG</span>
-        <span class="tag">Aventure</span>
-    </div>
-</div>
-<div class="card">
-    <img src="../img/gta4.jpg" alt="">
-    <h2>Grand Theft Auto : 4</h2>
-    <p>24 €</p>
-    <div class="tags">
-        <span class="tag">PS5</span>
-        <span class="tag">RPG</span>
-        <span class="tag">Aventure</span>
-    </div>
-</div>
-</div>
-
-
 </body>
 </html>

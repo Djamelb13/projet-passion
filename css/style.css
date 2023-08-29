@@ -75,6 +75,7 @@ p {
   flex-wrap: wrap;
   /* border: 2px dashed white; */
   padding-bottom: 20px;
+  padding-top:20px;
 }
 
 .card {
