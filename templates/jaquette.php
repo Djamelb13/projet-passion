@@ -4,12 +4,102 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    
+    <div class="container">
+<div class="card">
+    <div class="overlay"><img src="../img/gta4.jpg" alt="">
+    <h2>Grand Theft Auto : 4</h2>
+    <p>24 €</p>
+    <div class="tags">
+        <span class="tag">PS5</span>
+        <span class="tag">RPG</span>
+        <span class="tag">Aventure</span>
+    </div>
+</div>
+</div>
+<div class="card">
+    <img src="../img/200px-Jaquette_Pokémon_Or.png" alt="">
+    <h2>Pokemon : Or</h2>
+    <p>150 €</p>
+    <div class="tags">
+        <span class="tag">PS5</span>
+        <span class="tag">RPG</span>
+        <span class="tag">Aventure</span>
+        <span class="tag">PS5</span>
+        <span class="tag">RPG</span>
+        <span class="tag">Aventure</span>
+    </div>
+</div>
+<div class="card">
+    <img src="../img/sekiro.jpg" alt="">
+    <h2>Sekiro : Shadow Die</h2>
+    <p>24 €</p>
+    <div class="tags">
+        <span class="tag">PS5</span>
+        <span class="tag">RPG</span>
+        <span class="tag">Aventure</span>
+    </div>
+</div>
+<div class="card">
+    <img src="../img/gta4.jpg" alt="">
+    <h2>Grand Theft Auto : 4</h2>
+    <p>24 €</p>
+    <div class="tags">
+        <span class="tag">PS5</span>
+        <span class="tag">RPG</span>
+        <span class="tag">Aventure</span>
+    </div>
+</div>
+</div>
+<div class="container">
+<div class="card">
+    <div class="overlay"><img src="../img/gta4.jpg" alt="">
+    <h2>Grand Theft Auto : 4</h2>
+    <p>24 €</p>
+    <div class="tags">
+        <span class="tag">PS5</span>
+        <span class="tag">RPG</span>
+        <span class="tag">Aventure</span>
+    </div>
+</div>
+</div>
+<div class="card">
+    <img src="../img/200px-Jaquette_Pokémon_Or.png" alt="">
+    <h2>Pokemon : Or</h2>
+    <p>150 €</p>
+    <div class="tags">
+        <span class="tag">PS5</span>
+        <span class="tag">RPG</span>
+        <span class="tag">Aventure</span>
+        <span class="tag">PS5</span>
+        <span class="tag">RPG</span>
+        <span class="tag">Aventure</span>
+    </div>
+</div>
+<div class="card">
+    <img src="../img/sekiro.jpg" alt="">
+    <h2>Sekiro : Shadow Die</h2>
+    <p>24 €</p>
+    <div class="tags">
+        <span class="tag">PS5</span>
+        <span class="tag">RPG</span>
+        <span class="tag">Aventure</span>
+    </div>
+</div>
+<div class="card">
+    <img src="../img/gta4.jpg" alt="">
+    <h2>Grand Theft Auto : 4</h2>
+    <p>24 €</p>
+    <div class="tags">
+        <span class="tag">PS5</span>
+        <span class="tag">RPG</span>
+        <span class="tag">Aventure</span>
+    </div>
+</div>
+</div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+
 </body>
 </html>
