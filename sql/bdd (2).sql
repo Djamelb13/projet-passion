@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : mar. 29 août 2023 à 11:50
+-- Généré le : mar. 29 août 2023 à 13:57
 -- Version du serveur : 8.0.30
 -- Version de PHP : 8.1.10
 
@@ -93,6 +93,20 @@ CREATE TABLE `gametags` (
   `tag_id` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Déchargement des données de la table `gametags`
+--
+
+INSERT INTO `gametags` (`game_id`, `tag_id`) VALUES
+(1, 1),
+(1, 2),
+(2, 2),
+(1, 3),
+(2, 4),
+(2, 5),
+(4, 6),
+(4, 7);
+
 -- --------------------------------------------------------
 
 --
@@ -113,7 +127,9 @@ CREATE TABLE `jeu` (
 --
 
 INSERT INTO `jeu` (`game_id`, `game_title`, `game_desc`, `game_img`, `game_date`, `comm_id`) VALUES
-(1, 'Grand theft auto : 4', 'Grand Theft Auto IV (GTA 4) : Plongez dans un monde ouvert dynamique et immersif où vous incarnez un criminel cherchant fortune et survie dans les rues impitoyables de Liberty City.', 'a', '2023-08-16', NULL);
+(1, 'Grand theft auto : 4', 'Grand Theft Auto IV (GTA 4) : Plongez dans un monde ouvert dynamique et immersif où vous incarnez un criminel cherchant fortune et survie dans les rues impitoyables de Liberty City.', 'gta4.jpg', '2023-08-16', NULL),
+(2, 'Sekiro : Shadow Die', '\"Sekiro: Shadows Die Twice\" est un jeu d\'action-aventure se déroulant dans un Japon médiéval. Incarnez un shinobi et maîtrisez l\'art du combat au sabre tout en affrontant des ennemis redoutables pour sauver votre maître. Ce jeu est célèbre pour sa difficulté et son monde magnifiquement conçu.', 'sekiro.jpg', '2023-08-16', NULL),
+(4, 'Starcraft : II', 'Un jeu de gestion de base et de stratégie en temps réel. Détruisez la base ennemie en récoltant des ressources.', 'starcraft.jpg', '2023-08-16', NULL);
 
 -- --------------------------------------------------------
 
@@ -167,6 +183,15 @@ CREATE TABLE `propose_une_vente` (
   `user_name` varchar(70) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Déchargement des données de la table `propose_une_vente`
+--
+
+INSERT INTO `propose_une_vente` (`game_title`, `sell_date`, `sell_price`, `user_name`) VALUES
+('Grand theft auto : 4', '2023-08-16', 20.00, 'djamel'),
+('Sekiro : Shadow Die', '2023-08-01', 25.00, 'djamel'),
+('Starcraft : II', '2023-08-10', 10.00, 'djamel');
+
 -- --------------------------------------------------------
 
 --
@@ -177,6 +202,19 @@ CREATE TABLE `tags` (
   `tag_id` int NOT NULL,
   `tag_name` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `tags`
+--
+
+INSERT INTO `tags` (`tag_id`, `tag_name`) VALUES
+(1, 'aventure'),
+(4, 'Jeu solo'),
+(2, 'monde ouvert'),
+(6, 'Multijoueur'),
+(5, 'Ninja'),
+(3, 'rpg'),
+(7, 'Stratégie');
 
 -- --------------------------------------------------------
 
@@ -194,6 +232,13 @@ CREATE TABLE `utilisateur` (
   `user_description` varchar(70) NOT NULL,
   `user_picture` char(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `utilisateur`
+--
+
+INSERT INTO `utilisateur` (`user_name`, `user_mail`, `user_nickname`, `user_pwd`, `user_prenom`, `user_birthdate`, `user_description`, `user_picture`) VALUES
+('djamel', 'djamel.b13@laposte.net', 'dja', '1234', 'mel', '1995-08-09', 'un grand gamer', '');
 
 -- --------------------------------------------------------
 
@@ -322,13 +367,13 @@ ALTER TABLE `virtuel`
 -- AUTO_INCREMENT pour la table `jeu`
 --
 ALTER TABLE `jeu`
-  MODIFY `game_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `game_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT pour la table `tags`
 --
 ALTER TABLE `tags`
-  MODIFY `tag_id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `tag_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Contraintes pour les tables déchargées
