@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+    <?php include_once('../inc/connexion.php')?>
     <div class="container">
 <div class="card">
     <div class="overlay"><img src="../img/gta4.jpg" alt="">
