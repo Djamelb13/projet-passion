@@ -1,0 +1,29 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  border: 1px dashed rgb(235, 56, 56);
+
+  transition: 0.3s !important;
+}
+
+.collapse {
+  z-index: 999;
+  border: 1px dashed rgb(101, 14, 201);
+
+  /* position: absolute;
+  top: 0;
+  left: 0; */
+}
+
+/* Animation pour ouvrir le menu */
+#navMenu.collapsing {
+    transform: translateX(0);
+    transition: transform 0.3s ease-out;
+  }
+  
+  /* Animation pour fermer le menu */
+  #navMenu.collapsed {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in;
+  }
