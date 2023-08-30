@@ -51,6 +51,7 @@
           <div class="tab-pane fade show active" id="tab1" role="tabpanel">
             <h2>Onglet 1</h2>
             <p class="desc-text">
+                <?php include_once('collection.php') ?>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur dignissimos dolor ea accusamus numquam accusantium quas consequatur
               nisi cum sed explicabo quasi magni, nostrum obcaecati temporibus? Error dignissimos nihil natus!
             </p>
