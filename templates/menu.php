@@ -6,37 +6,38 @@
       <div class="row">
         <!-- Menu d'onglets Bootstrap -->
         <!-- Menu d'onglets Bootstrap -->
-        <ul class="nav nav-pills flex-column col-2 d-none d-xl-block sidenav" id="myTabs">
-          <h1>Menu de navigation</h1>
-          <li class="nav-item p-2">
+        <ul class="nav nav-pills flex-column  d-none d-xl-block sidenav col-3 " id="myTabs">
+          <h1 class="menu-title pb-5">Menu de navigation</h1>
+          <li class="nav-item py-3">
             <a class="nav-link active" id="tab1-tab" data-bs-toggle="tab" href="#tab1" role="tab">Ma collection</a>
           </li>
-          <li class="nav-item p-2">
-            <a class="nav-link" id="tab2-tab" data-bs-toggle="tab" href="#tab2" role="tab">Market store</a>
+          <li class="nav-item py-3 ">
+            <a class="nav-link " id="tab2-tab" data-bs-toggle="tab" href="#tab2" role="tab">Market store</a>
           </li>
-          <li class="nav-item p-2">
+          <li class="nav-item py-3">
             <a class="nav-link" id="tab3-tab" data-bs-toggle="tab" href="#tab3" role="tab">Collection zone</a>
           </li>
-          <h1>Guide d'utilisation</h1>
+          <h1 class="menu-title">Guide d'utilisation</h1>
           <li class="nav-item"><a href="#" class="nav-link p-3" data-bs-toggle="tab" href="#faq" role="tab">FAQ</a></li>
           <li class="nav-item"><a href="#" class="nav-link p-3" data-bs-toggle="tab" href="#guide" role="tab">Guide d'utilisation</a></li>
           <li class="nav-item"><a href="#" class="nav-link p-3" data-bs-toggle="tab" href="#mentions" role="tab">Mentions légales</a></li>
         </ul>
 
         <!-- Menu de navigation masqué en version mobile -->
-        <div class="collapse bg-warning w-100 position-fixed h-100 top-0 start-0 z-index-9999 collapsing" id="navMenu">
+        <div class="collapse bgc w-100 position-fixed h-100 top-0 start-0 z-index-9999 collapsing" id="navMenu">
           <button type="button" class="btn-close" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-label="Fermer"></button>
           <ul class="nav nav-pills flex-column">
-            <li class="nav-item p-2">
+            <li><h1 class="menu-title ">Guide d'utilisation</h1></li>
+            <li class="nav-item py-3">
               <a class="nav-link active" id="tab1-tab" data-bs-toggle="tab" href="#tab1" role="tab">Ma collection</a>
             </li>
-            <li class="nav-item p-2">
+            <li class="nav-item py-3">
               <a class="nav-link" id="tab2-tab" data-bs-toggle="tab" href="#tab2" role="tab">Market store</a>
             </li>
-            <li class="nav-item p-2">
+            <li class="nav-item py-3">
               <a class="nav-link" id="tab3-tab" data-bs-toggle="tab" href="#tab3" role="tab">Collection zone</a>
             </li>
-            <h1>Guide d'utilisation</h1>
+            <h1 class="menu-title">Guide d'utilisation</h1>
             <li class="nav-item"><a href="#" class="nav-link p-3">FAQ</a></li>
             <li class="nav-item"><a href="#" class="nav-link p-3">Guide d'utilisation</a></li>
             <li class="nav-item"><a href="#" class="nav-link p-3">Mentions légales</a></li>
@@ -79,5 +80,5 @@
       integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
       crossorigin="anonymous"
     ></script>
-    <script src="app.js"></script>
+    <script src="/js/app.js"></script>
 

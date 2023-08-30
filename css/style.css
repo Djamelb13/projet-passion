@@ -20,6 +20,9 @@
 
 body {
   background-color: #171a21;
+  @media (max-width: 768px) {
+    opacity: 1;
+  }
 }
 
 .card,
@@ -37,14 +40,14 @@ img {
   object-fit: cover;
 }
 
-h2 {text-align: center;
+.game-title {text-align: center;
   color: var(--font-color-game-title);
   font: normal var(--font-weight-game-title) var(--font-size-game-title) var(--font-type-game-title);
   font-size-adjust: 0.5;
 height: 24px;
 }
 
-p {
+.price {
     height: 26px;
   text-align: center;
   color: var(--font-color-game-price);

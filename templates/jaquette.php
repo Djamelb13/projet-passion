@@ -29,8 +29,8 @@
             while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
                 echo '<div class="card">';
                 echo '<img src="../img/' . $row["game_img"] . '" alt="' . $row["game_title"] . '" class="game-image">';
-                echo '<h2>' . $row["game_title"] . '</h2>';
-                echo '<p>Prix : ' . $row["sell_price"] . ' €</p>';
+                echo '<h2 class="game-title">' . $row["game_title"] . '</h2>';
+                echo '<p class="price">Prix : ' . $row["sell_price"] . ' €</p>';
                 echo '<div class="tags">';
                 $tags = explode(', ', $row["game_tags"]);
                 foreach ($tags as $tag) {
