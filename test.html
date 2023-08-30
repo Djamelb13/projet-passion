@@ -14,12 +14,14 @@
     />
   </head>
   <body>
-    <div class="container-fluid px-5 mt-5">
-        <h1>Menu de navigation</h1>
+    <div class="container-fluid px-5 py-5">
         
-        <div class="row">
+        
+        <div class="row ">
             <!-- Menu d'onglets Bootstrap -->
-            <ul class="nav nav-pills flex-column col-2" id="myTabs">
+            
+            <ul class="nav nav-pills flex-column col-2 d-none d-xl-block sidenav" id="myTabs">
+                <h1>Menu de navigation</h1>
                 <li class="nav-item p-2">
                     <a class="nav-link active" id="tab1-tab" data-bs-toggle="tab" href="#tab1" role="tab">Ma collection</a>
                 </li>
@@ -35,7 +37,7 @@
                 <li class="nav-item"><a href="#" class="nav-link p-3">Mentions légales</a></li>
             </ul>
             
-            <div class="vr vr-blurry g-0" style="height: 1000px;"></div>
+            <div class="vr vr-blurry g-0" style="height: 400px;"></div>
             <!-- Contenu des onglets -->
             <div class="tab-content col-6" id="myTabsContent">
                 <div class="tab-pane fade show active" id="tab1" role="tabpanel">
