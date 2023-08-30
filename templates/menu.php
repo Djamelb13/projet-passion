@@ -50,21 +50,21 @@
         <div class="tab-content col-6" id="myTabsContent">
           <div class="tab-pane fade show active" id="tab1" role="tabpanel">
             <h2>Onglet 1</h2>
-            <p>
+            <p class="desc-text">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur dignissimos dolor ea accusamus numquam accusantium quas consequatur
               nisi cum sed explicabo quasi magni, nostrum obcaecati temporibus? Error dignissimos nihil natus!
             </p>
           </div>
           <div class="tab-pane fade" id="tab2" role="tabpanel">
             <h2>Onglet 2</h2>
-            <p>
+            <p class="desc-text">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia culpa molestiae magnam deleniti inventore impedit neque odit labore magni
               assumenda, repellat, commodi sint ullam perspiciatis! Animi quibusdam quaerat in voluptate?
             </p>
           </div>
           <div class="tab-pane fade" id="tab3" role="tabpanel">
             <h2>Onglet 3</h2>
-            <p>
+            <p class="desc-text">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione, aliquid nemo placeat alias, quo numquam voluptates quas similique
               voluptatum omnis minus est quibusdam velit culpa distinctio iure possimus perspiciatis? Asperiores.
             </p>
