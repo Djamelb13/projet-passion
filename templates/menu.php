@@ -47,14 +47,9 @@
         <div class="vr vr-blurry g-0 d-none d-xl-block" style="height: 400px"></div>
 
         <!-- Contenu des onglets -->
-        <div class="tab-content col-6" id="myTabsContent">
+        <div class="tab-content " id="myTabsContent">
           <div class="tab-pane fade show active" id="tab1" role="tabpanel">
-            <h2>Onglet 1</h2>
-            <p class="desc-text">
-                <?php include_once('collection.php') ?>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur dignissimos dolor ea accusamus numquam accusantium quas consequatur
-              nisi cum sed explicabo quasi magni, nostrum obcaecati temporibus? Error dignissimos nihil natus!
-            </p>
+           <?php include_once('collection.php') ?>
           </div>
           <div class="tab-pane fade" id="tab2" role="tabpanel">
             <h2>Onglet 2</h2>

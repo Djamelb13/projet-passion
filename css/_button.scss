@@ -1,0 +1,30 @@
+.btnadd {
+  transition: 1.5s;
+  background: linear-gradient(180deg, rgba(33, 143, 205, 0.3) 0%, rgba(51, 38, 105, 0.11) 142.5%);
+  color: var(--font-color-button-add);
+  font: normal var(--font-weight-button-add) var(--font-size-button-add) var(--font-type-button-add);
+  &:hover {
+    color: rgb(2, 195, 234);
+    transition: 0.8s;
+    // background-color: red;
+    background: linear-gradient(180deg, rgba(74, 162, 214, 0.6) 0%, rgba(87, 59, 200, 0.3) 142.5%);
+  }
+}
+
+.btnedit {
+  transition: 1.5s;
+  background: linear-gradient(180deg, rgba(33, 143, 205, 0.3) 0%, rgba(51, 38, 105, 0.11) 142.5%);
+  color: var(--font-color-button-edit);
+  font: normal var(--font-weight-button-edit) var(--font-size-button-edit) var(--font-type-button-edit);
+  &:hover {
+    color: rgb(2, 195, 234);
+    transition: 0.8s;
+    // background-color: red;
+    background: linear-gradient(180deg, rgba(74, 162, 214, 0.6) 0%, rgba(87, 59, 200, 0.3) 142.5%);
+  }
+}
+
+.btn-block {
+  width: 100%;
+  display: inline-block;
+}
