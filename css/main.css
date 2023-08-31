@@ -13386,8 +13386,7 @@ textarea.form-control-lg {
 }
 
 .btn-block {
-  width: 100%;
-  display: inline-block;
+  white-space: nowrap;
 }
 
 * {
@@ -13550,8 +13549,9 @@ img {
 }
 
 .card {
-  /* border: 2px dashed red; */
+  border: 2px dashed red;
   height: 300px;
+  border: none;
 }
 
 :root {

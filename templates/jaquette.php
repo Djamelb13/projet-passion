@@ -1,16 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/css/style.css">
-</head>
-<body>
+
 
 <?php
     // Inclure le fichier de connexion à la base de données
-    include_once('../inc/connexion.php');
+    include_once($_SERVER['DOCUMENT_ROOT'] .'/inc/connexion.php');
 
     // Requête SQL pour récupérer les données des jeux
     $sql = "SELECT jeu.game_title, jeu.game_desc, jeu.game_img, jeu.game_date, jeu.comm_id, GROUP_CONCAT(tags.tag_name SEPARATOR ', ') AS game_tags, propose_une_vente.sell_price
@@ -27,7 +19,7 @@
     if ($result) {
         if ($result->rowCount() > 0) {
             while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-                echo '<div class="card">';
+                echo '<div class="card bg-transparent ">';
                 echo '<img src="../img/' . $row["game_img"] . '" alt="' . $row["game_title"] . '" class="game-image">';
                 echo '<h2 class="game-title">' . $row["game_title"] . '</h2>';
                 echo '<p class="price">Prix : ' . $row["sell_price"] . ' €</p>';
@@ -47,5 +39,3 @@
     }
     ?>
 </div>
-</body>
-</html>

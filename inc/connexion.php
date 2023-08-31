@@ -5,7 +5,6 @@ try {
         'root',
         ''
     );
-    echo '<h2>C\'est trop facile le code &#128512;</h2> ';
     
 } catch(PDOException $e) {
     echo "C'est pas facile le code &#128546;" . $e->getMessage();

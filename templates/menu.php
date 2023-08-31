@@ -47,8 +47,8 @@
         <div class="vr vr-blurry g-0 d-none d-xl-block" style="height: 400px"></div>
 
         <!-- Contenu des onglets -->
-        <div class="tab-content " id="myTabsContent">
-          <div class="tab-pane fade show active" id="tab1" role="tabpanel">
+        <div class="tab-content col-xl-8 col-12 " id="myTabsContent">
+          <div class="tab-pane fade show active align-items-center" id="tab1" role="tabpanel">
            <?php include_once('collection.php') ?>
           </div>
           <div class="tab-pane fade" id="tab2" role="tabpanel">
