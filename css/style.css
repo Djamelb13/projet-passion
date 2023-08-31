@@ -1,5 +1,4 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
-
 :root {
   --font-type-game-title: Poppins;
   --font-size-game-title: 15px;
@@ -14,13 +13,16 @@
 * {
   padding: 0;
   margin: 0;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   /* border: 1px dashed white; */
 }
 
 body {
   background-color: #171a21;
-  @media (max-width: 768px) {
+}
+@media (max-width: 768px) {
+  body {
     opacity: 1;
   }
 }
@@ -29,7 +31,10 @@ body {
 img {
   width: 160px;
   margin-right: 40px;
-  @media (max-width: 768px) {
+}
+@media (max-width: 768px) {
+  .card,
+  img {
     margin: auto; /* Supprime la marge droite sous mobile */
   }
 }
@@ -37,33 +42,40 @@ img {
 img {
   border-radius: 20px;
   height: 200px;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
-.game-title {text-align: center;
+.game-title {
+  text-align: center;
   color: var(--font-color-game-title);
   font: normal var(--font-weight-game-title) var(--font-size-game-title) var(--font-type-game-title);
   font-size-adjust: 0.5;
-height: 24px;
+  height: 24px;
 }
 
 .price {
-    height: 26px;
+  height: 26px;
   text-align: center;
   color: var(--font-color-game-price);
   font: normal var(--font-weight-game-price) var(--font-size-game-price) var(--font-type-game-price);
 }
 
 .tags {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
   gap: 3px;
 }
 
 .tag {
   border-radius: 20px;
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(17, 73, 125, 0.46)), to(rgba(17, 73, 125, 0)));
   background: linear-gradient(180deg, rgba(17, 73, 125, 0.46) 0%, rgba(17, 73, 125, 0) 100%);
-  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.15);
+  -webkit-box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.15);
+          box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.15);
   padding: 5px 10px;
   border-radius: 20px;
   cursor: pointer;
@@ -74,14 +86,17 @@ height: 24px;
 }
 
 .container {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
   /* border: 2px dashed white; */
   padding-bottom: 20px;
-  padding-top:20px;
+  padding-top: 20px;
 }
 
 .card {
-    /* border: 2px dashed red; */
-height: 300px;
-}
+  /* border: 2px dashed red; */
+  height: 300px;
+}/*# sourceMappingURL=style.css.map */

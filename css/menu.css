@@ -1,5 +1,5 @@
+@charset "UTF-8";
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
-
 :root {
   --font-type-main-title: Poppins;
   --font-size-main-title: 2.5rem; /* 40px / 16px = 2.5rem */
@@ -9,7 +9,9 @@
   --font-size-link-menu: 1.625rem; /* 15px / 16px = 0.9375rem */
   --font-weight-link-menu: 250;
   --font-color-link-menu: #8ba6b6;
-  @media (max-width: 1682px) {
+}
+@media (max-width: 1682px) {
+  :root {
     font-size: 12px;
   }
 }
@@ -17,17 +19,20 @@
 * {
   padding: 0;
   margin: 0;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-transition: 0.2s !important;
   transition: 0.2s !important;
 }
+
 @media (max-width: 1682px) {
   * {
+    -webkit-transition: 0s;
     transition: 0s;
   }
 }
 .collapse {
   z-index: 999;
-
   /* position: absolute;
   top: 0;
   left: 0; */
@@ -35,22 +40,35 @@
 
 /* Animation pour ouvrir le menu */
 #navMenu.collapsing {
-  transform: translateX(0);
+  -webkit-transform: translateX(0);
+          transform: translateX(0);
+  -webkit-transition: -webkit-transform 0.3s ease-out;
+  transition: -webkit-transform 0.3s ease-out;
   transition: transform 0.3s ease-out;
+  transition: transform 0.3s ease-out, -webkit-transform 0.3s ease-out;
 }
 
 /* Animation pour fermer le menu */
 #navMenu.collapsed {
-  transform: translateX(-100%);
+  -webkit-transform: translateX(-100%);
+          transform: translateX(-100%);
+  -webkit-transition: -webkit-transform 0.3s ease-in;
+  transition: -webkit-transform 0.3s ease-in;
   transition: transform 0.3s ease-in;
+  transition: transform 0.3s ease-in, -webkit-transform 0.3s ease-in;
 }
 
 .menu-title {
   color: var(--font-color-main-title);
   font: normal var(--font-weight-main-title) var(--font-size-main-title) var(--font-type-main-title);
   height: 60px;
-  text-size-adjust: auto;
-  @media (max-width: 1682px) {
+  -webkit-text-size-adjust: auto;
+     -moz-text-size-adjust: auto;
+      -ms-text-size-adjust: auto;
+          text-size-adjust: auto;
+}
+@media (max-width: 1682px) {
+  .menu-title {
     font-size: 24px;
   }
 }
@@ -58,7 +76,6 @@
 /* .menudesktop {
     width:480px;
   } */
-
 .nav-pills .nav-link.active {
   background-color: rgba(14, 73, 188, 0.25); /* Couleur de l'arrière-plan de l'onglet actif */
   border-radius: 50px;
@@ -77,4 +94,4 @@
 
 .desc-text {
   color: white;
-}
+}/*# sourceMappingURL=menu.css.map */
