@@ -57,6 +57,9 @@
   color: #8ba6b6;
   color: var(--font-color-link-menu);
   font: normal var(--font-weight-link-menu) var(--font-size-link-menu) var(--font-type-link-menu);
+  &:hover {
+    color: rgb(201, 205, 201);
+  }
 }
 
 .desc-text {
