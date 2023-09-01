@@ -9,7 +9,6 @@ $plateforme = $_POST['plateforme'];
 $etat = $_POST['etat'];
 $date = date("Y-m-d");
 
-
 // Traitement de l'image téléchargée
 $targetDir = "../uploads/imgj/"; // Répertoire où vous souhaitez enregistrer les images
 $targetFile = $targetDir . basename($_FILES["image"]["name"]);
@@ -49,8 +48,8 @@ if ($connexion->query($sqlJeu) === TRUE) {
         $sqlVirtuel = "INSERT INTO virtuel (game_title, game_keys, game_type)
         VALUES ('$titre', '$gameKeys', '$gameType')";
 
-        if ($conn->query($sqlVirtuel) === FALSE) {
-            echo "Erreur lors de l'insertion dans la table 'virtuel' : " . $conn->error;
+        if ($connexion->query($sqlVirtuel) === FALSE) {
+            echo "Erreur lors de l'insertion dans la table 'virtuel' : " . $connexion->error;
         }
     }
     
@@ -61,8 +60,8 @@ if ($connexion->query($sqlJeu) === TRUE) {
         $sqlPhysique = "INSERT INTO physique (game_title, game_type)
         VALUES ('$titre', '$gameType')";
 
-        if ($conn->query($sqlPhysique) === FALSE) {
-            echo "Erreur lors de l'insertion dans la table 'physique' : " . $conn->error;
+        if ($connexion->query($sqlPhysique) === FALSE) {
+            echo "Erreur lors de l'insertion dans la table 'physique' : " . $connexion->error;
         }
     }
     
@@ -72,8 +71,8 @@ if ($connexion->query($sqlJeu) === TRUE) {
     $sqlConsole = "INSERT INTO console (game_title, platform)
     VALUES ('$titre', '$platform')";
 
-    if ($conn->query($sqlConsole) === FALSE) {
-        echo "Erreur lors de l'insertion dans la table 'console' : " . $conn->error;
+    if ($connexion->query($sqlConsole) === FALSE) {
+        echo "Erreur lors de l'insertion dans la table 'console' : " . $connexion->error;
     }
     
     // Insérer dans la table 'etat' pour l'état
@@ -82,8 +81,8 @@ if ($connexion->query($sqlJeu) === TRUE) {
     $sqlEtat = "INSERT INTO etat (game_title, condition)
     VALUES ('$titre', '$condition')";
 
-    if ($conn->query($sqlEtat) === FALSE) {
-        echo "Erreur lors de l'insertion dans la table 'etat' : " . $conn->error;
+    if ($connexion->query($sqlEtat) === FALSE) {
+        echo "Erreur lors de l'insertion dans la table 'etat' : " . $connexion->error;
     }
     
     echo "Le jeu a été ajouté avec succès.";

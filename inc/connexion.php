@@ -5,6 +5,8 @@ try {
         'root',
         ''
     );
+    $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $connexion = null;
     
 } catch(PDOException $e) {
     echo "C'est pas facile le code &#128546;" . $e->getMessage();

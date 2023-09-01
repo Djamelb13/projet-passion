@@ -1,9 +1,9 @@
-<?php include_once('../inc/head.php')?>
-<div class="container">
+<?php include_once('../inc/head.php');?>
+<div class="container wh">
         <h1>Ajouter un jeu</h1>
         <form enctype="multipart/form-data" method="post" action="../inc/traitement_jeu.php">
             <div class="mb-3">
-                <label for="titre" class="form-label">Titre du jeu</label>
+                <label for="titre" class="form-label ">Titre du jeu</label>
                 <input type="text" class="form-control" id="titre" name="titre" required>
             </div>
             <div class="mb-3">

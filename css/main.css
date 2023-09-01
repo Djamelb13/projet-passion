@@ -13584,4 +13584,8 @@ img {
   :root {
     font-size: 12px;
   }
+}
+
+body .container.wh {
+  color: white;
 }/*# sourceMappingURL=main.css.map */
