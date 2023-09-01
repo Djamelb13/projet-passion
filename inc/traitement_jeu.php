@@ -1,4 +1,7 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 include_once('connexion.php');
 
 // Récupération des données du formulaire
@@ -8,6 +11,13 @@ $support = $_POST['support'];
 $plateforme = $_POST['plateforme'];
 $etat = $_POST['etat'];
 $date = date("Y-m-d");
+$tags = $_POST['tags'];
+foreach ($tags as $tag) {
+    // Do whatever you want with each tag, for example, add it to your database.
+    echo "Tag sélectionné : " . $tag . "<br>";
+    // You can insert this tag into your database here.
+}
+
 
 // Traitement de l'image téléchargée
 $targetDir = "../uploads/imgj/"; // Répertoire où vous souhaitez enregistrer les images
@@ -49,7 +59,8 @@ if ($connexion->query($sqlJeu) === TRUE) {
         VALUES ('$titre', '$gameKeys', '$gameType')";
 
         if ($connexion->query($sqlVirtuel) === FALSE) {
-            echo "Erreur lors de l'insertion dans la table 'virtuel' : " . $connexion->error;
+            $errorInfo = $connexion->errorInfo();
+            echo "Erreur lors de l'insertion dans la table 'virtuel' : " . $connexion->errorInfo()[2];
         }
     }
     
@@ -61,7 +72,8 @@ if ($connexion->query($sqlJeu) === TRUE) {
         VALUES ('$titre', '$gameType')";
 
         if ($connexion->query($sqlPhysique) === FALSE) {
-            echo "Erreur lors de l'insertion dans la table 'physique' : " . $connexion->error;
+            $errorInfo = $connexion->errorInfo();
+            echo "Erreur lors de l'insertion dans la table 'physique' : " . $connexion->errorInfo()[2];
         }
     }
     
@@ -72,24 +84,27 @@ if ($connexion->query($sqlJeu) === TRUE) {
     VALUES ('$titre', '$platform')";
 
     if ($connexion->query($sqlConsole) === FALSE) {
-        echo "Erreur lors de l'insertion dans la table 'console' : " . $connexion->error;
+        $errorInfo = $connexion->errorInfo();
+        echo "Erreur lors de l'insertion dans la table 'console' : " . $connexion->errorInfo()[2];
     }
     
     // Insérer dans la table 'etat' pour l'état
-    $condition = $_POST['condition']; // Supposons que vous ayez un champ pour la condition de jeu
+    $etat = $_POST['etat']; // Supposons que vous ayez un champ pour la condition de jeu
 
     $sqlEtat = "INSERT INTO etat (game_title, condition)
-    VALUES ('$titre', '$condition')";
+    VALUES ('$titre', '$etat')";
 
     if ($connexion->query($sqlEtat) === FALSE) {
-        echo "Erreur lors de l'insertion dans la table 'etat' : " . $connexion->error;
+        $errorInfo = $connexion->errorInfo();
+        echo "Erreur lors de l'insertion dans la table 'etat' : " . $connexion->errorInfo()[2];
     }
     
     echo "Le jeu a été ajouté avec succès.";
 } else {
-    echo "Erreur lors de l'ajout du jeu : " . $connexion->error;
+    echo "Erreur lors de l'ajout du jeu : " . $connexion->errorInfo()[2];
+    var_dump($connexion->errorInfo()[2]);
+    echo "Le code dans la branche else est exécuté.";
 }
 
 // Fermer la connexion à la base de données
-$connexion->close();
-?>
+$connexion = null;

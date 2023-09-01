@@ -2,8 +2,11 @@
 
 <?php
     // Inclure le fichier de connexion à la base de données
-    include_once($_SERVER['DOCUMENT_ROOT'] .'/inc/connexion.php');
-
+    include_once($_SERVER['DOCUMENT_ROOT'].'/inc/connexion.php');
+    if (!$connexion) {
+        echo "Erreur de connexion à la base de données.";
+        exit();
+    }
     // Requête SQL pour récupérer les données des jeux
     $sql = "SELECT jeu.game_title, jeu.game_desc, jeu.game_img, jeu.game_date, jeu.comm_id, GROUP_CONCAT(tags.tag_name SEPARATOR ', ') AS game_tags, propose_une_vente.sell_price
             FROM jeu
