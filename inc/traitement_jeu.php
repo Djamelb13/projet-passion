@@ -12,12 +12,6 @@ $plateforme = $_POST['plateforme'];
 $etat = $_POST['etat'];
 $date = date("Y-m-d");
 $tags = $_POST['tags'];
-foreach ($tags as $tag) {
-    // Do whatever you want with each tag, for example, add it to your database.
-    echo "Tag sélectionné : " . $tag . "<br>";
-    // You can insert this tag into your database here.
-}
-
 
 // Traitement de l'image téléchargée
 $targetDir = "../uploads/imgj/"; // Répertoire où vous souhaitez enregistrer les images
@@ -44,26 +38,37 @@ if (move_uploaded_file($_FILES["image"]["tmp_name"], $targetFile)) {
     exit();
 }
 
-$sqlJeu = "INSERT INTO jeu (game_title, game_desc, game_img, game_date)
-VALUES ('$titre', '$description', '$targetFile', '$date')";
+// Insérer le jeu dans la table 'jeu'
+$sqlJeu = "INSERT INTO jeu (game_id, game_title, game_desc, game_img, game_date, comm_id)
+VALUES (NULL, '$titre', '$description', '$targetFile', '$date', NULL)";
+echo $sqlJeu;
 
-if ($connexion->query($sqlJeu) === TRUE) {
+if ($connexion->query($sqlJeu) == TRUE) {
+    echo "COUCOU";
     // Succès pour l'insertion dans la table 'jeu'
-    
+    $jeuId = $connexion->lastInsertId();
+    echo $jeuId;
+
     // Insérer dans la table 'virtuel' si le support est virtuel
     if ($support === 'virtuel') {
-        $gameKeys = $_POST['game_keys']; // Supposons que vous ayez un champ pour les clés virtuelles
-        $gameType = $_POST['game_type']; // Supposons que vous ayez un champ pour le type de jeu virtuel
-
-        $sqlVirtuel = "INSERT INTO virtuel (game_title, game_keys, game_type)
-        VALUES ('$titre', '$gameKeys', '$gameType')";
-
-        if ($connexion->query($sqlVirtuel) === FALSE) {
-            $errorInfo = $connexion->errorInfo();
-            echo "Erreur lors de l'insertion dans la table 'virtuel' : " . $connexion->errorInfo()[2];
+        $gameKeys = $_POST['cles_cd'];
+        $gametitle = $_POST['titre'];
+    
+        foreach ($gameKeys as $key) {
+            // Insérez chaque clé CD dans la table 'virtuel'
+            $sqlClesCd = "INSERT INTO virtuel (game_title, game_keys, game_type) VALUES (:gametitle, :cles_cd, 'virtuel')";
+            $insertClesCdQuery = $connexion->prepare($sqlClesCd);
+            $insertClesCdQuery->bindParam(':gametitle', $gametitle, PDO::PARAM_STR);
+            $insertClesCdQuery->bindParam(':cles_cd', $key, PDO::PARAM_STR);
+        
+            if ($insertClesCdQuery->execute()) {
+                echo "Clé CD insérée avec succès : $key";
+            } else {
+                echo "Erreur lors de l'insertion de la clé CD : " . $insertClesCdQuery->errorInfo()[2];
+            }
         }
     }
-    
+
     // Insérer dans la table 'physique' si le support est physique
     if ($support === 'physique') {
         $gameType = $_POST['game_type']; // Supposons que vous ayez un champ pour le type de jeu physique
@@ -76,7 +81,7 @@ if ($connexion->query($sqlJeu) === TRUE) {
             echo "Erreur lors de l'insertion dans la table 'physique' : " . $connexion->errorInfo()[2];
         }
     }
-    
+
     // Insérer dans la table 'console' pour la plateforme
     $platform = $_POST['platform']; // Supposons que vous ayez un champ pour la plateforme
 
@@ -87,7 +92,7 @@ if ($connexion->query($sqlJeu) === TRUE) {
         $errorInfo = $connexion->errorInfo();
         echo "Erreur lors de l'insertion dans la table 'console' : " . $connexion->errorInfo()[2];
     }
-    
+
     // Insérer dans la table 'etat' pour l'état
     $etat = $_POST['etat']; // Supposons que vous ayez un champ pour la condition de jeu
 
@@ -98,7 +103,45 @@ if ($connexion->query($sqlJeu) === TRUE) {
         $errorInfo = $connexion->errorInfo();
         echo "Erreur lors de l'insertion dans la table 'etat' : " . $connexion->errorInfo()[2];
     }
-    
+
+    // Lier les tags au jeu
+    foreach ($tags as $tag) {
+        // Vérifiez si le tag existe déjà dans la table des tags
+        $query = $connexion->prepare("SELECT tag_id FROM tags WHERE tag_name = :tag_name");
+        $query->bindParam(':tag_name', $tag, PDO::PARAM_STR);
+        $query->execute();
+
+        if ($query->rowCount() > 0) {
+            // Le tag existe déjà, récupérez son ID
+            $row = $query->fetch(PDO::FETCH_ASSOC);
+            $tagId = $row['tag_id'];
+        } else {
+            // Le tag n'existe pas encore, insérez-le et récupérez son ID
+            $insertTagQuery = $connexion->prepare("INSERT INTO tags (tag_name) VALUES (:tag_name)");
+            $insertTagQuery->bindParam(':tag_name', $tag, PDO::PARAM_STR);
+
+            if ($insertTagQuery->execute()) {
+                $tagId = $connexion->lastInsertId();
+            } else {
+                echo "Erreur lors de l'insertion du tag dans la table 'tags' : " . $insertTagQuery->errorInfo()[2];
+                continue; // Passez au tag suivant en cas d'erreur
+            }
+        }
+echo "on est la";
+        // Utilisez $jeuId pour lier le jeu au tag dans la table associative
+        $linkTagQuery = $connexion->prepare("INSERT INTO gametags (game_id, tag_id) VALUES (:game_id, :tag_id)");
+        $linkTagQuery->bindParam(':game_id', $jeuId, PDO::PARAM_INT);
+        $linkTagQuery->bindParam(':tag_id', $tagId, PDO::PARAM_INT);
+
+        if ($linkTagQuery->execute()) {
+            $lastGameId = $connexion->lastInsertId('game_id'); // Récupérer la dernière valeur insérée pour game_id
+            $lastTagId = $connexion->lastInsertId('tag_id');   // Récupérer la dernière valeur insérée pour tag_id
+            echo "Le lien entre le jeu et le tag a été établi avec succès. game_id = $lastGameId, tag_id = $lastTagId";
+        } else {
+            echo "Erreur lors de la liaison du jeu au tag : " . $linkTagQuery->errorInfo()[2];
+        }
+    }
+
     echo "Le jeu a été ajouté avec succès.";
 } else {
     echo "Erreur lors de l'ajout du jeu : " . $connexion->errorInfo()[2];
