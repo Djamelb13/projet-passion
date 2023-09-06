@@ -1,7 +1,7 @@
-<?php include_once('../inc/head.php'); ?>
+<?php /*include_once('../inc/head.php');*/ ?> 
 
-<div class="container wh">
-    <h1>Ajouter un jeu</h1>
+<div class="modal-body"><div class="container wh">
+    
     <form enctype="multipart/form-data" method="post" action="../inc/traitement_jeu.php">
         <!-- Title Field -->
         <div class="mb-3">
@@ -14,7 +14,31 @@
             <label for="description" class="form-label">Description du jeu</label>
             <textarea class="form-control" id="description" name="description" required></textarea>
         </div>
+        <div class="mb-3">
+            <label for="tags" class="form-label">Tags existants</label>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="tagsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    Sélectionnez des tags
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="tagsDropdown">
+                    <?php
+                    // Connexion à la base de données (à personnaliser avec vos paramètres)
+                    
+                   include_once($_SERVER['DOCUMENT_ROOT'] .'/inc/connexion.php'); 
 
+                    // Requête pour récupérer les tags depuis la base de données
+                    $query = $connexion->query('SELECT tag_id, tag_name FROM tags');
+                    while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+                        $tagName = htmlspecialchars($row['tag_name']);
+                        echo '<li><label class="dropdown-item">';
+                        echo '<input type="checkbox" name="tags[]" value="' . $tagName . '"> ' . $tagName;
+                        echo '</label></li>';
+                    }
+                    $connexion = null;
+                    ?>
+                </ul>
+            </div>
+        </div>
         <!-- Image Upload Field -->
         <div class="mb-3">
             <label for="image" class="form-label">Image (JPG ou PNG, max 20 Mo)</label>
@@ -53,30 +77,7 @@
                 <!-- Add more condition options if needed -->
             </select>
         </div>
-
-        <div class="mb-3">
-            <label for="tags" class="form-label">Tags existants</label>
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="tagsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                    Sélectionnez des tags
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="tagsDropdown">
-                    <?php
-                    // Connexion à la base de données (à personnaliser avec vos paramètres)
-                    include('../inc/connexion.php');
-
-                    // Requête pour récupérer les tags depuis la base de données
-                    $query = $connexion->query('SELECT tag_id, tag_name FROM tags');
-                    while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
-                        $tagName = htmlspecialchars($row['tag_name']);
-                        echo '<li><label class="dropdown-item">';
-                        echo '<input type="checkbox" name="tags[]" value="' . $tagName . '"> ' . $tagName;
-                        echo '</label></li>';
-                    }
-                    ?>
-                </ul>
-            </div>
-        </div>
+        
 
 
         <div class="mb-3">
@@ -101,10 +102,8 @@
 
     </form>
 </div>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 <script src="../js/form.js">
-
-</script>
-<script>
 
 </script>

@@ -40,5 +40,6 @@
     } else {
         echo "Erreur de requête : " . $connexion->errorInfo()[2];
     }
+    $connexion = null;
     ?>
 </div>
