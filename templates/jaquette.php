@@ -1,8 +1,6 @@
-
-
 <?php
     // Inclure le fichier de connexion à la base de données
-    include_once($_SERVER['DOCUMENT_ROOT'].'/inc/connexion.php');
+    include($_SERVER['DOCUMENT_ROOT'].'/inc/connexion.php');
     if (!$connexion) {
         echo "Erreur de connexion à la base de données.";
         exit();

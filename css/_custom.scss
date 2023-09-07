@@ -1,3 +1,10 @@
 //ajouter regle custom ici si besoin
 
 @import "../node_modules/bootstrap/scss/bootstrap";
+@import "_variables.scss";
+
+.form-label,
+.modal-title {
+  color: white !important;
+  font: normal var(--font-weight-link-menu) var(--font-size-link-menu) var(--font-type-link-menu);
+}

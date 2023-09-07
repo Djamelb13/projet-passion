@@ -49,7 +49,7 @@
         <!-- Contenu des onglets -->
         <div class="tab-content col-xl-8 col-12 " id="myTabsContent">
           <div class="tab-pane fade show active align-items-center" id="tab1" role="tabpanel">
-           <?php include_once('collection.php') ?>
+          <?php include_once($_SERVER['DOCUMENT_ROOT'] .'/templates/collection.php'); ?>
           </div>
           <div class="tab-pane fade" id="tab2" role="tabpanel">
             <h2>Onglet 2</h2>

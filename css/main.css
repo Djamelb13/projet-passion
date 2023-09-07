@@ -13353,6 +13353,44 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+:root {
+  --font-type-game-title: Poppins;
+  --font-size-game-title: 15px;
+  --font-weight-game-title: 700;
+  --font-color-game-title: #fff;
+  --font-type-game-price: Poppins;
+  --font-size-game-price: 15px;
+  --font-weight-game-price: 700;
+  --font-color-game-price: #c97a7a;
+  --font-type-main-title: Poppins;
+  --font-size-main-title: 2.5rem;
+  --font-weight-main-title: 250;
+  --font-color-main-title: #00c2ff;
+  --font-type-link-menu: Poppins;
+  --font-size-link-menu: 1.625rem;
+  --font-weight-link-menu: 250;
+  --font-color-link-menu: #8ba6b6;
+  --font-type-button-add: Poppins;
+  --font-size-button-add: 1.5625rem;
+  --font-weight-button-add: 250;
+  --font-color-button-add: #ffffff;
+  --font-type-button-edit: Poppins;
+  --font-size-button-edit: 1.5625rem;
+  --font-weight-button-edit: 800;
+  --font-color-button-edit: #ffffff;
+}
+@media (max-width: 1682px) {
+  :root {
+    font-size: 12px;
+  }
+}
+
+.form-label,
+.modal-title {
+  color: white !important;
+  font: normal var(--font-weight-link-menu) var(--font-size-link-menu) var(--font-type-link-menu);
+}
+
 .btnadd {
   -webkit-transition: 1.5s;
   transition: 1.5s;
@@ -13454,7 +13492,7 @@ textarea.form-control-lg {
 }
 
 .bgc {
-  background-color: rgb(14, 45, 131);
+  background-color: #171a21;
 }
 
 .nav-link {

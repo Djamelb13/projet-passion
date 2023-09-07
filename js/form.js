@@ -7,8 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const selectedTagsInput = document.getElementById("selected_tags_input");
   const tagOptions = document.querySelectorAll(".tag-option");
 
-  // Tableau pour stocker les tags sélectionnés
-  const selectedTags = JSON.parse(selectedTagsInput.value || "[]");
+
 
   // Fonction pour mettre à jour la liste des tags sélectionnés
   function updateSelectedTagsList() {
