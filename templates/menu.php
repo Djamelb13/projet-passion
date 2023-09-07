@@ -11,7 +11,7 @@
     <div class="container-fluid px-5 py-5">
         <div class="row">
             <?php if (isset($_SESSION['utilisateurConnecte']) && $_SESSION['utilisateurConnecte'] === true) {
-                    echo '<h2>Bonjour '. ucfirst($_SESSION['user_name']) .'</h2>
+                    echo '<h3>Bonjour '. ucfirst($_SESSION['user_name']) .'</h3>
                     <button class="btn btn-primary" id="btnDeconnexion">Déconnexion</button>';
                         
                 }
