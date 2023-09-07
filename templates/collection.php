@@ -1,5 +1,4 @@
-<?php  
-echo $_SERVER['DOCUMENT_ROOT']. '/templates/formulaire_game.php'; ?>
+
 
 <div class="container  d-flex justify-content-center ">
     <div class=" row w-100 d-flex justify-content-center">
@@ -28,8 +27,7 @@ echo $_SERVER['DOCUMENT_ROOT']. '/templates/formulaire_game.php'; ?>
 </div>
 <div class="contenupage">
 <?php include_once($_SERVER['DOCUMENT_ROOT'] .'/templates/jaquette.php'); ?>
-<?php  
-echo $_SERVER['DOCUMENT_ROOT']. '/templates/jaquette.php'; ?></div>
+</div>
 <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"

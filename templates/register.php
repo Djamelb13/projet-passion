@@ -38,7 +38,7 @@
         </div>
         
         <div class="mb-3">
-            <label for="user_picture" class="form-label">Image (1 pour une image, 0 sinon) :</label>
+            <label for="user_picture" class="form-label">Image (1 pour une image, 0 sinon) : WARNING A CHANGER IMG</label>
             <input type="number" name="user_picture" class="form-control" min="0" max="1" required>
         </div>
         

@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,22 +8,38 @@
 <body>
     <!-- Bouton pour activer le menu déroulant en version mobile -->
     <button class="d-xl-none" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">Menu</button>
-
     <div class="container-fluid px-5 py-5">
         <div class="row">
+            <?php if (isset($_SESSION['utilisateurConnecte']) && $_SESSION['utilisateurConnecte'] === true) {
+                    echo '<h2>Bonjour '. ucfirst($_SESSION['user_name']) .'</h2>
+                    <button class="btn btn-primary" id="btnDeconnexion">Déconnexion</button>';
+                        
+                }
+                ?> 
             <!-- Menu d'onglets Bootstrap -->
             <ul class="nav nav-pills flex-column d-none d-xl-block sidenav col-3 " id="myTabs">
                 <h1 class="menu-title pb-5">Menu de navigation</h1>
-                <li class="nav-item py-3">
-                    <a class="nav-link active" id="tab1-tab" data-bs-toggle="tab" href="#tab1" role="tab">Ma collection</a>
-                </li>
-                <li class="nav-item py-3 ">
-                    <a class="nav-link " id="tab2-tab" data-bs-toggle="tab" href="#tab2" role="tab">Market store</a>
-                </li>
-                <li class="nav-item py-3">
-                    <a class="nav-link" id="tab3-tab" data-bs-toggle="tab" href="#tab3" role="tab">Collection zone</a>
-                </li>
-                <!-- Nouveaux onglets -->
+                <?php
+                
+                // Vérifier si l'utilisateur est connecté (vous devez mettre en place votre propre logique de connexion)
+                $utilisateurConnecte = false;
+
+                // Générer les onglets en fonction de l'état de connexion
+                if (isset($_SESSION['utilisateurConnecte']) && $_SESSION['utilisateurConnecte'] === true) {
+                    echo '<li class="nav-item py-3">
+                            <a class="nav-link active" id="tab1-tab" data-bs-toggle="tab" href="#tab1" role="tab">Ma collection</a>
+                        </li>
+                        <li class="nav-item py-3 ">
+                            <a class="nav-link " id="tab2-tab" data-bs-toggle="tab" href="#tab2" role="tab">Market store</a>
+                        </li>
+                        <li class="nav-item py-3">
+                            <a class="nav-link" id="tab3-tab" data-bs-toggle="tab" href="#tab3" role="tab">Collection zone</a>
+                        </li>
+                        ';
+                        
+                }
+                ?>
+                <!-- Onglets communs pour tous les utilisateurs -->
                 <li class="nav-item py-3">
                     <a class="nav-link" id="tab4-tab" data-bs-toggle="tab" href="#tab4" role="tab">Inscription</a>
                 </li>
@@ -63,7 +81,16 @@
             <!-- Contenu des onglets -->
             <div class="tab-content col-xl-8 col-12 " id="myTabsContent">
                 <div class="tab-pane fade show active align-items-center" id="tab1" role="tabpanel">
-                    <?php include_once($_SERVER['DOCUMENT_ROOT'] .'/templates/collection.php'); ?>
+                <?php
+    // Vérifier si l'utilisateur est connecté
+    if (isset($_SESSION['utilisateurConnecte']) && $_SESSION['utilisateurConnecte'] === true) {
+        // Afficher les jaquettes et les boutons "Ajouter un jeu" et "Éditer collection" ici
+        include_once($_SERVER['DOCUMENT_ROOT'] . '/templates/collection.php');
+    } else {
+        // Afficher un message ou rediriger vers la page de connexion
+        echo "<p>Vous devez être connecté pour voir votre collection.</p>";
+    }
+    ?>
                 </div>
                 <div class="tab-pane fade" id="tab2" role="tabpanel">
                     <h2>Onglet 2</h2>
@@ -88,9 +115,9 @@
                     <?php include_once($_SERVER['DOCUMENT_ROOT'] .'/templates/register.php'); ?>
                 </div>
                 <div class="tab-pane fade" id="tab5" role="tabpanel">
-                    <h2>Nouvel onglet 2</h2>
+                    <h2>Connexion</h2>
                     <p class="desc-text">
-                        Contenu de l'onglet 5.
+                        <?php include_once($_SERVER['DOCUMENT_ROOT'] .'/templates/formulaire_connexion.php'); ?>
                     </p>
                 </div>
             </div>
@@ -105,5 +132,25 @@
       crossorigin="anonymous"
     ></script>
     <script src="/js/app.js"></script>
+    <script>
+document.getElementById("btnDeconnexion").addEventListener("click", function() {
+    // Envoyer une demande au serveur pour détruire la session
+    fetch("../inc/deconnexion.php", {
+        method: "POST", // Vous pouvez également utiliser la méthode GET
+    })
+    .then(response => {
+        if (response.ok) {
+            // Rediriger l'utilisateur vers la page d'accueil ou une autre page après la déconnexion
+            window.location.href = "index.php"; // Remplacez "index.php" par l'URL de votre choix
+        } else {
+            // Gérer les erreurs éventuelles
+            console.error("La déconnexion a échoué.");
+        }
+    })
+    .catch(error => {
+        console.error("Erreur lors de la déconnexion : " + error);
+    });
+});
+</script>
 </body>
 </html>
