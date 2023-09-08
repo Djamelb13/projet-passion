@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // L'utilisateur est connecté avec succès
         // Vous pouvez stocker des informations de session ou rediriger l'utilisateur vers une page sécurisée.
         $_SESSION['user_id'] = $user['user_id']; // Stockez l'ID de l'utilisateur dans la session par exemple
-        header("Location: ../templates/test.php"); // Rediriger vers une page sécurisée
+        header("Location: ../index.php"); // Rediriger vers une page sécurisée
     } else {
         // L'authentification a échoué
         echo "Nom d'utilisateur ou mot de passe incorrect.";
