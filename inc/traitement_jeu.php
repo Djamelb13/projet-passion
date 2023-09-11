@@ -210,6 +210,6 @@ if ($support === 'physique') {
 
 // Fermer la connexion à la base de données
 $connexion = null;
-header('Location: index.php');
+header('Location: /index.php');
     exit;
 ?>

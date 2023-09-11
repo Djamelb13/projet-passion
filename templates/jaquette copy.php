@@ -1,7 +1,6 @@
 <div class="container">
 <?php
 include($_SERVER['DOCUMENT_ROOT'].'/inc/connexion.php');
-echo ($_SERVER['DOCUMENT_ROOT'].'/inc/connexion.php');
 
 $user_name = $_SESSION['user_name']; // Remplacez par le nom d'utilisateur souhaité
 $query = "SELECT ucoll.coll_name, comp.game_title, jeu.game_img, jeu.game_desc, propose_une_vente.sell_price, GROUP_CONCAT(tags.tag_name SEPARATOR ', ') AS game_tags
@@ -19,25 +18,32 @@ $stmt = $connexion->prepare($query);
 $stmt->bindParam(':user_name', $user_name, PDO::PARAM_STR);
 $stmt->execute();
 
-$collections = $stmt -> fetchAll();
+$collections = [];
 
-if(!empty($collections)){
-foreach ($collections as $key => $value) {
+while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    $coll_name = $row['coll_name'];
+    $game_title = $row['game_title'];
+    $game_img = $row['game_img'];
+    $game_desc = $row['game_desc'];
+    $sell_price = $row['sell_price'];
+    $game_tags = $row['game_tags'];
+    
     echo '<div class="card bg-transparent">';
-    echo '<img src="../img/' . $value['game_img'] . '" alt="' . $value['game_title'] . '" class="game-image">';
-    echo '<h2 class="game-title">' . $value['game_title'] . '</h2>';
-    echo '<p class="price">Prix : ' . $value['sell_price'] . ' €</p>';
+    echo '<img src="../img/' . $game_img . '" alt="' . $game_title . '" class="game-image">';
+    echo '<h2 class="game-title">' . $game_title . '</h2>';
+    echo '<p class="price">Prix : ' . $sell_price . ' €</p>';
     echo '<div class="tags">';
-    $tags = explode(', ', $value['game_tags']);
+    $tags = explode(', ', $game_tags);
     foreach ($tags as $tag) {
         echo '<span class="tag">' . $tag . '</span>';
     }
     echo '</div>';
     echo '</div>';
 }
-}
-else { echo "Aucun résultat trouvé.";}
 
+if (empty($collections)) {
+    echo "Aucun résultat trouvé.";
+}
 
 $connexion = null;
 ?>
