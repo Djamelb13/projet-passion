@@ -1,7 +1,7 @@
 <div class="container">
 <?php
 include($_SERVER['DOCUMENT_ROOT'].'/inc/connexion.php');
-echo ($_SERVER['DOCUMENT_ROOT'].'/inc/connexion.php');
+
 
 $user_name = $_SESSION['user_name']; // Remplacez par le nom d'utilisateur souhaité
 $query = "SELECT ucoll.coll_name, comp.game_title, jeu.game_img, jeu.game_desc, propose_une_vente.sell_price, GROUP_CONCAT(tags.tag_name SEPARATOR ', ') AS game_tags

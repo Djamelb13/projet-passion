@@ -1,41 +1,42 @@
 <?php
+session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 include_once('connexion.php');
 print_r($_POST);
 
-// Récupération des données du formulaire
-$titre = $_POST['titre'];
-$description = $_POST['description'];
-$support = $_POST['support'];
-$plateforme = $_POST['plateforme'];
-$etat = $_POST['etat'];
-$date = date("Y-m-d");
-$manual_tags = $_POST['manual_tags'];
-
-// Récupérez les tags sélectionnés depuis le champ caché
-$selectedTags = isset($_POST['tags']) ? $_POST['tags'] : [];
-$selectedTags = array_map('htmlspecialchars', $selectedTags); // Échapper les balises HTML
-
-// Assurez-vous que $selectedTags est un tableau valide
-if (!is_array($selectedTags)) {
-    $selectedTags = [];
-}
-
-// Ajoutez les tags manuels s'ils sont renseignés
-if (!empty($manual_tags)) {
-    $manualTagsArray = explode(',', $manual_tags);
-    $manualTagsArray = array_map('trim', $manualTagsArray);
-    $manualTagsArray = array_map('htmlspecialchars', $manualTagsArray); // Échapper les balises HTML
-
-    // Fusionnez les tags manuels avec les tags sélectionnés
-    $selectedTags = array_merge($selectedTags, $manualTagsArray);
-}
-
 try {
     // Start a database transaction
     $connexion->beginTransaction();
+
+    // Récupération des données du formulaire
+    $titre = $_POST['titre'];
+    $description = $_POST['description'];
+    $support = $_POST['support'];
+    $plateforme = $_POST['plateforme'];
+    $etat = $_POST['etat'];
+    $date = date("Y-m-d");
+    $manual_tags = $_POST['manual_tags'];
+
+    // Récupérez les tags sélectionnés depuis le champ caché
+    $selectedTags = isset($_POST['tags']) ? $_POST['tags'] : [];
+    $selectedTags = array_map('htmlspecialchars', $selectedTags); // Échapper les balises HTML
+
+    // Assurez-vous que $selectedTags est un tableau valide
+    if (!is_array($selectedTags)) {
+        $selectedTags = [];
+    }
+
+    // Ajoutez les tags manuels s'ils sont renseignés
+    if (!empty($manual_tags)) {
+        $manualTagsArray = explode(',', $manual_tags);
+        $manualTagsArray = array_map('trim', $manualTagsArray);
+        $manualTagsArray = array_map('htmlspecialchars', $manualTagsArray); // Échapper les balises HTML
+
+        // Fusionnez les tags manuels avec les tags sélectionnés
+        $selectedTags = array_merge($selectedTags, $manualTagsArray);
+    }
 
     // Traitement de l'image téléchargée
     $targetDir = "../uploads/imgj/"; // Répertoire où vous souhaitez enregistrer les images
@@ -97,37 +98,35 @@ try {
             }
         }
         // Insérer dans la table 'physique' si le support est physique
-        // Insérer dans la table 'physique' si le support est physique
-if ($support === 'physique') {
-    $gameType = $_POST['support']; // Supposons que vous ayez un champ pour le type de jeu physique
+        if ($support === 'physique') {
+            $gameType = $_POST['support']; // Supposons que vous ayez un champ pour le type de jeu physique
 
-    // Récupérer le game_id du jeu ajouté précédemment dans la table 'jeu'
-    $sqlGetGameId = "SELECT game_id FROM jeu WHERE game_title = :gametitle";
-    $getGameIdQuery = $connexion->prepare($sqlGetGameId);
-    $getGameIdQuery->bindParam(':gametitle', $titre, PDO::PARAM_STR);
-    $getGameIdQuery->execute();
+            // Récupérer le game_id du jeu ajouté précédemment dans la table 'jeu'
+            $sqlGetGameId = "SELECT game_id FROM jeu WHERE game_title = :gametitle";
+            $getGameIdQuery = $connexion->prepare($sqlGetGameId);
+            $getGameIdQuery->bindParam(':gametitle', $titre, PDO::PARAM_STR);
+            $getGameIdQuery->execute();
 
-    if ($getGameIdQuery->rowCount() > 0) {
-        $row = $getGameIdQuery->fetch(PDO::FETCH_ASSOC);
-        $gameId = $row['game_id'];
+            if ($getGameIdQuery->rowCount() > 0) {
+                $row = $getGameIdQuery->fetch(PDO::FETCH_ASSOC);
+                $gameId = $row['game_id'];
 
-        // Insérer le jeu physique avec le game_id lié
-        $sqlPhysique = "INSERT INTO physique (game_title, game_type, game_id) VALUES (:gametitle, :gameType, :gameId)";
-        $insertPhysiqueQuery = $connexion->prepare($sqlPhysique);
-        $insertPhysiqueQuery->bindParam(':gametitle', $titre, PDO::PARAM_STR);
-        $insertPhysiqueQuery->bindParam(':gameType', $gameType, PDO::PARAM_STR);
-        $insertPhysiqueQuery->bindParam(':gameId', $gameId, PDO::PARAM_INT);
+                // Insérer le jeu physique avec le game_id lié
+                $sqlPhysique = "INSERT INTO physique (game_title, game_type, game_id) VALUES (:gametitle, :gameType, :gameId)";
+                $insertPhysiqueQuery = $connexion->prepare($sqlPhysique);
+                $insertPhysiqueQuery->bindParam(':gametitle', $titre, PDO::PARAM_STR);
+                $insertPhysiqueQuery->bindParam(':gameType', $gameType, PDO::PARAM_STR);
+                $insertPhysiqueQuery->bindParam(':gameId', $gameId, PDO::PARAM_INT);
 
-        if ($insertPhysiqueQuery->execute()) {
-            echo "Le jeu physique a été ajouté avec succès.";
-        } else {
-            echo "Erreur lors de l'insertion dans la table 'physique' : " . $insertPhysiqueQuery->errorInfo()[2];
+                if ($insertPhysiqueQuery->execute()) {
+                    echo "Le jeu physique a été ajouté avec succès.";
+                } else {
+                    echo "Erreur lors de l'insertion dans la table 'physique' : " . $insertPhysiqueQuery->errorInfo()[2];
+                }
+            } else {
+                echo "Erreur : Le jeu correspondant n'a pas été trouvé dans la table 'jeu'.";
+            }
         }
-    } else {
-        echo "Erreur : Le jeu correspondant n'a pas été trouvé dans la table 'jeu'.";
-    }
-}
-
 
         // Insérer dans la table 'console' pour la plateforme
         $plateforme = $_POST['plateforme']; // Supposons que vous ayez un champ pour la plateforme
@@ -195,12 +194,52 @@ if ($support === 'physique') {
             }
         }
 
+        // Ajouter le jeu à la collection de l'utilisateur dans la table 'compose'
+        try {
+            // Récupérer le nom de l'utilisateur à partir de la session ou des données POST
+            $userName = $_SESSION['user_name']; // Assurez-vous d'avoir une session utilisateur en place
+
+            // Récupérer le nom de la collection de l'utilisateur
+            $sqlGetCollName = "SELECT coll_name FROM possede WHERE user_name = :username";
+            $getCollNameQuery = $connexion->prepare($sqlGetCollName);
+            $getCollNameQuery->bindParam(':username', $userName, PDO::PARAM_STR);
+            $getCollNameQuery->execute();
+
+            if ($getCollNameQuery->rowCount() > 0) {
+                $row = $getCollNameQuery->fetch(PDO::FETCH_ASSOC);
+                $collName = $row['coll_name'];
+
+                // ...
+                
+                // Insérer dans la table 'compose' avec le nom de la collection de l'utilisateur
+                $sqlCompose = "INSERT INTO compose (game_title, coll_name, coll_date_add)
+                VALUES (:gametitle, :collname, :date)";
+        
+                $insertComposeQuery = $connexion->prepare($sqlCompose);
+                $insertComposeQuery->bindParam(':gametitle', $titre, PDO::PARAM_STR);
+                $insertComposeQuery->bindParam(':collname', $collName, PDO::PARAM_STR);
+                $insertComposeQuery->bindParam(':date', $date, PDO::PARAM_STR);
+        
+                if ($insertComposeQuery->execute()) {
+                    echo "Le jeu a été ajouté à la collection avec succès.";
+                } else {
+                    echo "Erreur lors de l'insertion dans la table 'compose' : " . $insertComposeQuery->errorInfo()[2];
+                }
+
+                // ...
+            } else {
+                echo "Aucune collection trouvée pour l'utilisateur.";
+            }
+        } catch (PDOException $e) {
+            // Roll back the transaction on error
+            $connexion->rollBack();
+            echo "Une erreur s'est produite : " . $e->getMessage();
+        }
+
         // Commit the transaction
         $connexion->commit();
 
         echo "Le jeu a été ajouté avec succès.";
-    } else {
-        echo "Erreur lors de l'ajout du jeu : " . $insertJeuQuery->errorInfo()[2];
     }
 } catch (PDOException $e) {
     // Roll back the transaction on error
@@ -210,6 +249,6 @@ if ($support === 'physique') {
 
 // Fermer la connexion à la base de données
 $connexion = null;
-header('Location: /index.php');
-    exit;
+header('Location: /');
+exit;
 ?>

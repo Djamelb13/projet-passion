@@ -9,7 +9,7 @@
     <!-- Bouton pour activer le menu déroulant en version mobile -->
     <button class="d-xl-none" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">Menu</button>
     <div class="container-fluid px-5 py-5">
-        <div class="row">
+        <div class="row"style="color:white;" >
             <?php if (isset($_SESSION['utilisateurConnecte']) && $_SESSION['utilisateurConnecte'] === true) {
                     echo '<h3>Bonjour '. ucfirst($_SESSION['user_name']) .'</h3>
                     <button class="btn btn-primary" id="btnDeconnexion">Déconnexion</button>';
