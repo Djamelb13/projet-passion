@@ -10,12 +10,13 @@
     <button class="d-xl-none" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">Menu</button>
     <div class="container-fluid px-5 py-5">
         <div class="row"style="color:white;" >
+        <div class="col-12"> <!-- Ajoutez cette div pour créer une colonne à largeur fixe -->
             <?php if (isset($_SESSION['utilisateurConnecte']) && $_SESSION['utilisateurConnecte'] === true) {
-                    echo '<h3>Bonjour '. ucfirst($_SESSION['user_name']) .'</h3>
-                    <button class="btn btn-primary" id="btnDeconnexion">Déconnexion</button>';
-                        
-                }
-                ?> 
+                echo '<h3>Bonjour ' . ucfirst($_SESSION['user_name']) . '</h3>';
+                echo '<button class="btnadd btn   " id="btnDeconnexion">Déconnexion</button>';
+            }
+            ?>
+        </div> 
             <!-- Menu d'onglets Bootstrap -->
             <ul class="nav nav-pills flex-column d-none d-xl-block sidenav col-3 " id="myTabs">
                 <h1 class="menu-title pb-5">Menu de navigation</h1>

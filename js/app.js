@@ -1,14 +1,8 @@
 var navMenu = document.getElementById("navMenu");
 var startX; // Position de départ du toucher
 
-navMenu.addEventListener("show.bs.collapse", function () {
-  setTimeout(function () {
-    navMenu.classList.remove("collapsed");
-    navMenu.classList.add("collapsing");
-  }, 1);
-});
-
-navMenu.addEventListener("hide.bs.collapse", function () {
+// Ajoutez un gestionnaire d'événements pour le clic sur la croix
+document.querySelector(".btn-close").addEventListener("click", function() {
   navMenu.classList.remove("collapsing");
   navMenu.classList.add("collapsed");
 });
@@ -21,9 +15,24 @@ navMenu.addEventListener("touchmove", function (e) {
   var currentX = e.touches[0].clientX;
   var distance = currentX - startX;
 
-  if (distance > 50) {
-    // Si le geste de balayage va vers la droite (distance positive),
+  if (distance > 0) {
+    // Si le balayage va vers la droite (distance positive),
     // fermez le menu
+    navMenu.classList.remove("collapsing");
+    navMenu.classList.add("collapsed");
+  }
+});
+var menuButton = document.querySelector(".d-xl-none");
+
+// Ajoutez un gestionnaire d'événements pour le clic sur le bouton "Menu"
+menuButton.addEventListener("click", function() {
+  // Vérifiez si le menu est déjà fermé
+  if (navMenu.classList.contains("collapsed")) {
+    // Si le menu est fermé, réactivez-le
+    navMenu.classList.remove("collapsed");
+    navMenu.classList.add("collapsing");
+  } else {
+    // Si le menu est ouvert, fermez-le
     navMenu.classList.remove("collapsing");
     navMenu.classList.add("collapsed");
   }

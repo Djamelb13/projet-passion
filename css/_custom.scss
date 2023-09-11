@@ -8,3 +8,13 @@
   color: white !important;
   font: normal var(--font-weight-link-menu) var(--font-size-link-menu) var(--font-type-link-menu);
 }
+
+.card {
+  object-fit: cover;
+  text-align: center; /* Centrer le texte à l'intérieur de la carte */
+}
+
+.game-image {
+  display: block; /* Pour centrer l'image horizontalement */
+  margin: 0 auto; /* Centrer l'image horizontalement */
+}

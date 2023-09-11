@@ -13391,6 +13391,17 @@ textarea.form-control-lg {
   font: normal var(--font-weight-link-menu) var(--font-size-link-menu) var(--font-type-link-menu);
 }
 
+.card {
+  -o-object-fit: cover;
+     object-fit: cover;
+  text-align: center; /* Centrer le texte à l'intérieur de la carte */
+}
+
+.game-image {
+  display: block; /* Pour centrer l'image horizontalement */
+  margin: 0 auto; /* Centrer l'image horizontalement */
+}
+
 .btnadd {
   -webkit-transition: 1.5s;
   transition: 1.5s;
