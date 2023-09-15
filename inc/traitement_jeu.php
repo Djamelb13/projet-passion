@@ -85,9 +85,9 @@ try {
             $cdKeysString = implode(', ', $gameKeys);
 
             // Insérez la chaîne de clés CD dans la table 'virtuel' avec le game_id généré
-            $sqlClesCd = "INSERT INTO virtuel (game_title, game_keys, game_type, game_id) VALUES (:gametitle, :cd_keys, 'virtuel', :jeuId)";
+            $sqlClesCd = "INSERT INTO virtuel (game_keys, game_type, game_id) VALUES (:cd_keys, 'virtuel', :jeuId)";
             $insertClesCdQuery = $connexion->prepare($sqlClesCd);
-            $insertClesCdQuery->bindParam(':gametitle', $titre, PDO::PARAM_STR); // Utilisez le titre du jeu
+            
             $insertClesCdQuery->bindParam(':cd_keys', $cdKeysString, PDO::PARAM_STR);
             $insertClesCdQuery->bindParam(':jeuId', $jeuId, PDO::PARAM_INT); // Utilisez le game_id obtenu précédemment
 
@@ -112,10 +112,8 @@ try {
                 $gameId = $row['game_id'];
 
                 // Insérer le jeu physique avec le game_id lié
-                $sqlPhysique = "INSERT INTO physique (game_title, game_type, game_id) VALUES (:gametitle, :gameType, :gameId)";
+                $sqlPhysique = "INSERT INTO physique (game_type, game_id) VALUES ('physique', :gameId)";
                 $insertPhysiqueQuery = $connexion->prepare($sqlPhysique);
-                $insertPhysiqueQuery->bindParam(':gametitle', $titre, PDO::PARAM_STR);
-                $insertPhysiqueQuery->bindParam(':gameType', $gameType, PDO::PARAM_STR);
                 $insertPhysiqueQuery->bindParam(':gameId', $gameId, PDO::PARAM_INT);
 
                 if ($insertPhysiqueQuery->execute()) {
@@ -131,11 +129,11 @@ try {
         // Insérer dans la table 'console' pour la plateforme
         $plateforme = $_POST['plateforme']; // Supposons que vous ayez un champ pour la plateforme
 
-        $sqlConsole = "INSERT INTO console (game_title, platform)
-        VALUES (:gametitle, :plateforme)";
+        $sqlConsole = "INSERT INTO console (game_id, platform)
+        VALUES (:game_id, :plateforme)";
 
         $insertConsoleQuery = $connexion->prepare($sqlConsole);
-        $insertConsoleQuery->bindParam(':gametitle', $titre, PDO::PARAM_STR);
+        $insertConsoleQuery->bindParam(':game_id', $jeuId, PDO::PARAM_INT);
         $insertConsoleQuery->bindParam(':plateforme', $plateforme, PDO::PARAM_STR);
 
         if ($insertConsoleQuery->execute()) {
@@ -145,11 +143,11 @@ try {
         }
 
         // Insérer dans la table 'etat' pour l'état
-        $sqlEtat = "INSERT INTO etat (game_title, game_condition)
-        VALUES (:gametitle, :etat)";
+        $sqlEtat = "INSERT INTO etat (game_id, game_condition)
+        VALUES (:game_id, :etat)";
 
         $insertEtatQuery = $connexion->prepare($sqlEtat);
-        $insertEtatQuery->bindParam(':gametitle', $titre, PDO::PARAM_STR);
+        $insertEtatQuery->bindParam(':game_id', $jeuId, PDO::PARAM_INT);
         $insertEtatQuery->bindParam(':etat', $etat, PDO::PARAM_STR);
 
         if ($insertEtatQuery->execute()) {
@@ -212,11 +210,11 @@ try {
                 // ...
                 
                 // Insérer dans la table 'compose' avec le nom de la collection de l'utilisateur
-                $sqlCompose = "INSERT INTO compose (game_title, coll_name, coll_date_add)
-                VALUES (:gametitle, :collname, :date)";
+                $sqlCompose = "INSERT INTO compose (coll_name, coll_date_add, game_id)
+                VALUES (:collname, :date , :game_id)";
         
                 $insertComposeQuery = $connexion->prepare($sqlCompose);
-                $insertComposeQuery->bindParam(':gametitle', $titre, PDO::PARAM_STR);
+                $insertComposeQuery->bindParam(':game_id', $jeuId, PDO::PARAM_INT);
                 $insertComposeQuery->bindParam(':collname', $collName, PDO::PARAM_STR);
                 $insertComposeQuery->bindParam(':date', $date, PDO::PARAM_STR);
         

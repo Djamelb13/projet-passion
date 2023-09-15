@@ -1,18 +1,22 @@
 <?php
 session_start();
-error_reporting(E_ALL);
+// error_reporting(E_ALL);
 ini_set('display_errors', 1);
-
+print_r($_POST);
+var_dump($_POST);
 include($_SERVER['DOCUMENT_ROOT'].'/inc/connexion.php');
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    echo "OOOH";
     try {
+        echo "ca marche";
         // Démarrez une transaction
         $connexion->beginTransaction();
 
         // Récupérez les nouvelles données du jeu à partir du formulaire
         $newGameTitle = $_POST['titre'];
         $newGameDescription = $_POST['description'];
+        print_r($_POST);
 
         // Validez les données au besoin
 
@@ -56,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             $connexion->commit();
 
                             // Redirigez l'utilisateur vers une page de confirmation
-                            header('Location: /inc/edit_traitement.php');
+                            // header('Location: /inc/edit_traitement.php');
                             exit;
                         } else {
                             // En cas d'erreur lors de la mise à jour de 'console'
@@ -87,5 +91,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Si le formulaire n'a pas été soumis par POST, redirigez l'utilisateur vers une autre page ou affichez un message d'erreur
     echo "Requête invalide.";
     echo 'Titre posté : ' . $_POST['titre'];
+    print_r($_POST);
 }
 ?>

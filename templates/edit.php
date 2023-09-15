@@ -3,19 +3,20 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-include($_SERVER['DOCUMENT_ROOT'].'/inc/connexion.php');
+include_once($_SERVER['DOCUMENT_ROOT'].'/inc/connexion.php');
 $game = "MUCK";
 echo $game;
 
 // Vérifiez si un identifiant de jeu à éditer est passé en paramètre GET
 if (isset($game)) {
+    $game = "Starcraft : II";
     $editGameId = $game;
     echo $game;
 
     // Récupérez les données du jeu à éditer à partir de la base de données
-    $sql = "SELECT * FROM jeu WHERE game_title = :edit_game_id";
+    $sql = "SELECT * FROM jeu WHERE  game_title = :edit_game_id";
     $query = $connexion->prepare($sql);
-    $query->bindParam(':edit_game_id', $editGameId, PDO::PARAM_INT);
+    $query->bindParam(':edit_game_id', $editGameId, PDO::PARAM_STR);
     var_dump($query);
     var_dump($editGameId);
     $query->execute();
@@ -33,7 +34,8 @@ if (isset($game)) {
     exit;
 }
 
-
+echo $editGameId;
+echo $game;
 ?>
 
 <!DOCTYPE html>
@@ -65,6 +67,26 @@ if (isset($game)) {
             <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
         </form>
     </div>
+    <div class="container">
+    <div class="row justify-content-center">
+        <div class="col">
+            <h2 class="text-center mb-4">Connexion</h2>
+            <form action="../inc/edit_traitement.php" method="POST">
+                <div class="mb-3">
+                    <label for="user_name" class="form-label">Nom d'utilisateur :</label>
+                    <input type="text" class="form-control" id="user_name" name="user_name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="user_pwd" class="form-label">Mot de passe :</label>
+                    <input type="password" class="form-control" id="user_pwd" name="user_pwd" required>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Se connecter</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
     <!-- Mettez ici les scripts Bootstrap -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

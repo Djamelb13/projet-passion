@@ -1,7 +1,7 @@
 <?php
 try {
     $connexion = new PDO(
-        'mysql:host=localhost;dbname= bdd;charset=utf8',
+        'mysql:host=localhost;dbname=bddtest;charset=utf8',
         'root',
          ''
     );
