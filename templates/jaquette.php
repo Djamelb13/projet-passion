@@ -40,6 +40,8 @@ foreach ($collections as $key => $value) {
     foreach ($tags as $tag) {
         echo '<span class="tag">' . $tag . '</span>';
     }
+
+echo '<button class="edit-button btn-secondary btn-edit" data-bs-toggle="modal" data-bs-target="#editGameModal" data-game-id="' . $value['game_title'] . '">Editer</button>';
     echo '</div>';
     echo '</div>';
 }

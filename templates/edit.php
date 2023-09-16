@@ -3,25 +3,23 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-include_once($_SERVER['DOCUMENT_ROOT'].'/inc/connexion.php');
+include($_SERVER['DOCUMENT_ROOT'].'/inc/connexion.php');
 $game = "MUCK";
-echo $game;
+
 
 // Vérifiez si un identifiant de jeu à éditer est passé en paramètre GET
 if (isset($game)) {
-    $game = "LOL";
+    $game = "abc";
     $editGameId = $game;
-    echo $game;
+
 
     // Récupérez les données du jeu à éditer à partir de la base de données
     $sql = "SELECT * FROM jeu WHERE  game_title = :edit_game_id";
     $query = $connexion->prepare($sql);
     $query->bindParam(':edit_game_id', $editGameId, PDO::PARAM_STR);
-    var_dump($query);
-    var_dump($editGameId);
     $query->execute();
     $gameData = $query->fetch(PDO::FETCH_ASSOC);
-    var_dump($gameData);
+
 
     if (!$gameData) {
         // Le jeu n'a pas été trouvé, affichez un message d'erreur ou redirigez l'utilisateur
@@ -34,8 +32,6 @@ if (isset($game)) {
     exit;
 }
 
-echo $editGameId;
-echo $game;
 ?>
 
 <!DOCTYPE html>

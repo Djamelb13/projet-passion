@@ -13642,3 +13642,7 @@ img {
 body .container.wh {
   color: white;
 }/*# sourceMappingURL=main.css.map */
+
+.btn-edit {
+  display: none;
+}
