@@ -7,7 +7,7 @@ include_once('connexion.php');
 print_r($_POST);
 
 try {
-    // Start a database transaction
+    // Commencez une transaction de base de données
     $connexion->beginTransaction();
 
     // Récupération des données du formulaire
@@ -55,7 +55,7 @@ try {
         exit();
     }
 
-    // Déplacer l'image vers le répertoire de destination
+    // Déplacez l'image vers le répertoire de destination
     if (move_uploaded_file($_FILES["image"]["tmp_name"], $targetFile)) {
         echo "L'image a été téléchargée avec succès.";
     } else {
@@ -74,10 +74,10 @@ try {
     $insertJeuQuery->bindParam(':date', $date, PDO::PARAM_STR);
 
     if ($insertJeuQuery->execute()) {
-        // Get the last inserted game_id
+        // Obtenir le dernier game_id inséré
         $jeuId = $connexion->lastInsertId();
 
-        // Insérer dans la table 'virtuel' si le support est virtuel
+        // Insérer dans la table appropriée selon le support (virtuel ou physique)
         if ($support === 'virtuel') {
             $gameKeys = $_POST['cles_cd'];
 
@@ -87,18 +87,17 @@ try {
             // Insérez la chaîne de clés CD dans la table 'virtuel' avec le game_id généré
             $sqlClesCd = "INSERT INTO virtuel (game_keys, game_type, game_id) VALUES (:cd_keys, 'virtuel', :jeuId)";
             $insertClesCdQuery = $connexion->prepare($sqlClesCd);
-            
+
             $insertClesCdQuery->bindParam(':cd_keys', $cdKeysString, PDO::PARAM_STR);
-            $insertClesCdQuery->bindParam(':jeuId', $jeuId, PDO::PARAM_INT); // Utilisez le game_id obtenu précédemment
+            $insertClesCdQuery->bindParam(':jeuId', $jeuId, PDO::PARAM_INT);
 
             if ($insertClesCdQuery->execute()) {
                 echo "Clés CD insérées avec succès : " . $cdKeysString;
             } else {
                 echo "Erreur lors de l'insertion des clés CD : " . $insertClesCdQuery->errorInfo()[2];
             }
-        }
-        // Insérer dans la table 'physique' si le support est physique
-        if ($support === 'physique') {
+        } elseif ($support === 'physique') {
+            // Insérer dans la table 'physique' si le support est physique
             $gameType = $_POST['support']; // Supposons que vous ayez un champ pour le type de jeu physique
 
             // Récupérer le game_id du jeu ajouté précédemment dans la table 'jeu'
@@ -127,8 +126,6 @@ try {
         }
 
         // Insérer dans la table 'console' pour la plateforme
-        $plateforme = $_POST['plateforme']; // Supposons que vous ayez un champ pour la plateforme
-
         $sqlConsole = "INSERT INTO console (game_id, platform)
         VALUES (:game_id, :plateforme)";
 
@@ -207,8 +204,6 @@ try {
                 $row = $getCollNameQuery->fetch(PDO::FETCH_ASSOC);
                 $collName = $row['coll_name'];
 
-                // ...
-                
                 // Insérer dans la table 'compose' avec le nom de la collection de l'utilisateur
                 $sqlCompose = "INSERT INTO compose (coll_name, coll_date_add, game_id)
                 VALUES (:collname, :date , :game_id)";
@@ -223,24 +218,22 @@ try {
                 } else {
                     echo "Erreur lors de l'insertion dans la table 'compose' : " . $insertComposeQuery->errorInfo()[2];
                 }
-
-                // ...
             } else {
                 echo "Aucune collection trouvée pour l'utilisateur.";
             }
         } catch (PDOException $e) {
-            // Roll back the transaction on error
+            // Rollback de la transaction en cas d'erreur
             $connexion->rollBack();
             echo "Une erreur s'est produite : " . $e->getMessage();
         }
 
-        // Commit the transaction
+        // Valider la transaction
         $connexion->commit();
 
         echo "Le jeu a été ajouté avec succès.";
     }
 } catch (PDOException $e) {
-    // Roll back the transaction on error
+    // Rollback de la transaction en cas d'erreur
     $connexion->rollBack();
     echo "Une erreur s'est produite : " . $e->getMessage();
 }
