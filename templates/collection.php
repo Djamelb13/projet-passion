@@ -16,7 +16,7 @@
         <button  class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-      <?php include_once($_SERVER['DOCUMENT_ROOT'] .'/templates/formulaire_game.php'); ?>
+      <?php include($_SERVER['DOCUMENT_ROOT'] .'/templates/formulaire_game.php'); ?>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
@@ -26,7 +26,7 @@
   </div>
 </div>
 <div class="contenupage">
-<?php include_once($_SERVER['DOCUMENT_ROOT'] .'/templates/jaquette.php'); ?>
+<?php include($_SERVER['DOCUMENT_ROOT'] .'/templates/jaquette.php'); ?>
 </div>
 <div class="modal fade" id="editGameModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 <div class="modal-dialog modal-xl ">
@@ -36,7 +36,8 @@
         <button  class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-      <?php include_once($_SERVER['DOCUMENT_ROOT'] .'/templates/edit.php'); ?>
+      <?php include($_SERVER['DOCUMENT_ROOT'] .'/templates/edit.php'); ?>
+      <input type="hidden" id="gameIdInput" name="game_id" value="">
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
