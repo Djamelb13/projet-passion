@@ -23,19 +23,26 @@
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="tagsDropdown">
                                     <?php
-                                    // Connexion à la base de données (à personnaliser avec vos paramètres)
-                                    include_once($_SERVER['DOCUMENT_ROOT'] .'/inc/connexion.php'); 
-
-                                    // Requête pour récupérer les tags depuis la base de données
-                                    $query = $connexion->query('SELECT tag_id, tag_name FROM tags');
-                                    while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
-                                        $tagName = htmlspecialchars($row['tag_name']);
-                                        echo '<li><label class="dropdown-item">';
-                                        echo '<input type="checkbox" name="tags[]" value="' . $tagName . '"> ' . $tagName;
-                                        echo '</label></li>';
+                                    try {
+                                        // Connexion à la base de données (à personnaliser avec vos paramètres)
+                                        include($_SERVER['DOCUMENT_ROOT'] .'/inc/connexion.php'); 
+                                    
+                                        // Requête pour récupérer les tags depuis la base de données
+                                        $query = $connexion->query('SELECT tag_id, tag_name FROM tags');
+                                        while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+                                            $tagName = htmlspecialchars($row['tag_name']);
+                                            echo '<li><label class="dropdown-item">';
+                                            echo '<input type="checkbox" name="tags[]" value="' . $tagName . '"> ' . $tagName;
+                                            echo '</label></li>';
+                                        }
+                                        $connexion = null;
+                                    } catch (PDOException $e) {
+                                        // Gestion des erreurs de base de données
+                                        echo 'Erreur de base de données : ' . $e->getMessage();
                                     }
                                     $connexion = null;
                                     ?>
+                                    
                                 </ul>
                             </div>
                         </div>

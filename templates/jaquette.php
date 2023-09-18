@@ -26,7 +26,7 @@
             echo '<div class="card bg-transparent">';
             echo '<form method="post" action="' . $_SERVER['PHP_SELF'] . '">';
             echo '<input type="hidden" name="game_id" value="' . $value['game_id'] . '">';
-            // echo '<h1>' . $value['game_id'] . '</h1>';
+            echo '<h1>' . $value['game_id'] . '</h1>';
             echo '<button type="button" class="edit-button btn-secondary btn-edit btn btnedition" data-bs-toggle="modal" data-bs-target="#editGameModal' . $value['game_id'] . '">Editer</button>';
             echo '</form>';
             echo '<img src="../img/' . $value['game_img'] . '" alt="' . $value['game_title'] . '" class="game-image">';
